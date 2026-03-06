@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Lluvia de Amor 💖</title>
+
+<style>
+
+body{
+    margin:0;
+    overflow:hidden;
+    background:linear-gradient(#ffdde1,#ee9ca7);
+    font-family:Arial, Helvetica, sans-serif;
+    text-align:center;
+}
+
+/* texto de instrucciones */
+.instruccion{
+    position:fixed;
+    top:20px;
+    width:100%;
+    font-size:28px;
+    font-weight:bold;
+    color:rgb(0, 0, 0);
+    text-shadow:2px 2px 5px rgba(0,0,0,0.3);
+}
+
+/* mensajes que aparecen */
+.mensaje{
+    position:absolute;
+    color:rgb(0, 0, 0);
+    font-size:24px;
+    font-weight:bold;
+    animation:fade 2s forwards;
+    pointer-events:none;
+}
+
+@keyframes fade{
+    0%{opacity:1; transform:scale(1);}
+    100%{opacity:0; transform:scale(2);}
+}
+
+/* corazones */
+.corazon{
+    position:absolute;
+    font-size:32px;
+    cursor:pointer;
+    animation:caer linear;
+}
+
+@keyframes caer{
+    from{transform:translateY(-50px);}
+    to{transform:translateY(100vh);}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="instruccion">
+💖 Toca los corazones para descubrir mensajes de amor 💖
+</div>
+
+<script>
+
+const mensajes = [
+"Te amo ❤️",
+"Me encantas 💕",
+"Eres mi persona favorita 💖",
+"Me haces muy feliz 💘",
+"Eres increíble 💓",
+"No dejo de pensar en ti 💞",
+"Me gustas mucho 💗",
+"Eres especial ✨",
+"Te AMO LAYLA",
+"MI DUEÑA",
+];
+
+function crearCorazon(){
+
+    const corazon = document.createElement("div");
+    corazon.classList.add("corazon");
+    corazon.innerHTML="❤️";
+
+    corazon.style.left = Math.random()*100 + "vw";
+    corazon.style.animationDuration = (3 + Math.random()*5) + "s";
+
+    corazon.onclick = function(){
+
+        const texto = document.createElement("div");
+        texto.classList.add("mensaje");
+
+        texto.innerText = mensajes[Math.floor(Math.random()*mensajes.length)];
+
+        texto.style.left = corazon.style.left;
+        texto.style.top = corazon.getBoundingClientRect().top + "px";
+
+        document.body.appendChild(texto);
+
+        corazon.remove();
+
+        setTimeout(()=>{
+            texto.remove();
+        },2000)
+
+    }
+
+    document.body.appendChild(corazon);
+
+    setTimeout(()=>{
+        corazon.remove();
+    },8000)
+
+}
+
+setInterval(crearCorazon,500);
+
+</script>
+
+</body>
+</html>
